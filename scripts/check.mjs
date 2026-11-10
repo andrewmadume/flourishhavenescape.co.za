@@ -24,5 +24,10 @@ for(const p of pages){const html=fs.readFileSync(new URL(p,root),'utf8');assert(
 const amenities=fs.readFileSync(new URL('amenities.html',root),'utf8');
 for(const text of ['Only ONE parking space','Netflix','Private balcony','R350','longer than five nights','at least ONE DAY','high boundary walls','electric fencing','burglar-proof'])assert(amenities.includes(text),text);
 const explore=fs.readFileSync(new URL('explore.html',root),'utf8');
-for(const text of ['Lambton Gardens Mall','Checkers','Woolworths','Pick n Pay Clothing','Builders','Dis-Chem Pharmacy','Ackermans','PEP',"McDonald's",'KFC','Debonairs Pizza',"Roman's Pizza",'Fast Food &amp; Restaurants'])assert(explore.includes(text),text);
+for(const text of ['Lambton Gardens Mall','Checkers','Woolworths','Pick n Pay Clothing','Builders','Dis-Chem Pharmacy','Ackermans','PEP',"McDonald's",'KFC','Debonairs Pizza',"Roman's Pizza",'Restaurants &amp; Takeaways'])assert(explore.includes(text),text);
 console.log(`Validated ${pages.length} pages, local links, 26 gallery assignments, amenities, new Explore categories and international contact links.`);
+
+assert.equal((amenities.match(/class="category-icon"/g)||[]).length,8);
+assert.equal((explore.match(/class="category-icon"/g)||[]).length,6);
+assert(!explore.includes('<h2>Casual dining</h2>'));
+for(const name of ['Mugg & Bean On The Move','Copper Canyon Spur','The Harvard Café','Runway27'])assert.equal(explore.split(name).length-1,1);
